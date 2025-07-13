@@ -26,25 +26,41 @@ COPY ./node-webapp .
 RUN yarn install --production
 CMD ["node" , "src/index.js"]
 EXPOSE 3000
+
 1. Setting Up the Docker Environment
 Current Directory Reference (.): In Docker, a dot (.) is used to indicate the current directory. When specifying .in a Docker command, it instructs Docker to look in the current directory for files like Dockerfile, which defines the instructions for building the Docker image.
-Dockerfile Basics: The Dockerfile is a text document that contains all the commands used to assemble an image. We used a Dockerfile to set up the Node.js environment, copy our web application code, install dependencies, and expose the necessary ports for our application to be accessible.
-2. Building and Testing the Docker Image
+
+2.Dockerfile Basics: The Dockerfile is a text document that contains all the commands used to assemble an image. We used a Dockerfile to set up the Node.js environment, copy our web application code, install dependencies, and expose the necessary ports for our application to be accessible.
+
+3. Building and Testing the Docker Image
+   
 Build the Image: Use the command docker build -t <image-name> . to build the Docker image. The -t flag assigns a name to the image for easy reference.
+
 Run the Container: Once built, the command docker run -d -p 3000:3000 <image-name> runs the container in detached mode (-d), mapping port 3000 on the container to port 3000 on the host.
+
 Verify the Container: We verified that the application was running by opening localhost:3000 in a browser. If the app loads correctly, our Docker container has successfully hosted the application.
-3. Resolving Common Errors
+
+5. Resolving Common Errors
 Node.js Image Version Issue: We encountered an error while using a specific version of the Node.js image. The solution was to manually pull the correct version using docker pull node:<version>-alpine.
-Manual Pull vs. Automatic Image Download: Ideally, Docker automatically pulls images from Docker Hub, but manual pulling can be necessary when certain configurations aren’t detected automatically.
-4. Docker Hub: Pushing the Image
+
+6.Manual Pull vs. Automatic Image Download: Ideally, Docker automatically pulls images from Docker Hub, but manual pulling can be necessary when certain configurations aren’t detected automatically.
+
+7. Docker Hub: Pushing the Image
 Tagging the Image: To push our Docker image to Docker Hub, it needs to be tagged with the correct repository name using the command docker tag <local-image-name> <docker-hub-username>/<repository-name>:v1.
-Push to Docker Hub: The command docker push <docker-hub-username>/<repository-name>:v1 pushes the tagged image to Docker Hub. Once the image is on Docker Hub, it’s available for others to pull and deploy.
-Repository Management: For larger projects, repository management tools like Nexus or Amazon’s ECR (Elastic Container Registry) are commonly used in place of Docker Hub.
-5. Automating with Jenkins: CI/CD Pipeline
+
+8. Push to Docker Hub: The command docker push <docker-hub-username>/<repository-name>:v1 pushes the tagged image to Docker Hub. Once the image is on Docker Hub, it’s available for others to pull and deploy.
+   
+9. Repository Management: For larger projects, repository management tools like Nexus or Amazon’s ECR (Elastic Container Registry) are commonly used in place of Docker Hub.
+10. Automating with Jenkins: CI/CD Pipeline
 CI/CD Process Overview: A CI/CD pipeline automates the build, test, and deployment processes. We will be using Jenkins a CI/CD tool that helps automate these tasks to streamline the software development lifecycle (SDLC).
+
+
 Pipeline Setup: In the next phase of our project, we will set up a pipeline where Jenkins automatically pulls code from GitHub, builds the Docker image, tags it and pushes it to Docker Hub.
+
+
 Automated Deployment: With automation in place, we eliminate repetitive tasks allowing for quicker releases and more consistent deployments.
 — — — — — — — — — — — — — — — — — — — -
+
 
 Launch EC2 Instances:
 First thing lets create an EC2 instance and connect it to get started. Go to your AWS Console and create two new EC2 instances.
@@ -185,6 +201,7 @@ Paste it in the Pipeline configurations Repo URL at “Advanced Project Options�
 
 Change branch to main and save the changes at “Pipeline”.
 Next you’re going to click build now and open your IDE. We’re adding the Jenkins file to pipeline.
+
 
 Use this code to create your pipeline,
 
